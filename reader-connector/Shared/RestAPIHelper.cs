@@ -9,14 +9,11 @@ namespace reader_connector.Shared
 {
     class RestAPIHelper
     {
-        private static readonly string baseUrl = "https://hcmiu-presence.herokuapp.com";
-        //private static readonly string baseUrl = "http://localhost:8080";
-
-        public static async Task<string> Get(string path)
+        public static async Task<string> Get(string url)
         {
             using (HttpClient client = new HttpClient())
             {
-                using (HttpResponseMessage res = await client.GetAsync($"{baseUrl}/{path}"))
+                using (HttpResponseMessage res = await client.GetAsync(url))
                 {
                     using (HttpContent content = res.Content)
                     {
