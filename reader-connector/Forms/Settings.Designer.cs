@@ -49,6 +49,7 @@ namespace reader_connector.Forms
             this.BtnStart = new System.Windows.Forms.Button();
             this.BtnClearLog = new System.Windows.Forms.Button();
             this.BtnExit = new System.Windows.Forms.Button();
+            this.BtnCheckConn = new System.Windows.Forms.Button();
             this.GrpSetup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.GrpSettings.SuspendLayout();
@@ -64,6 +65,7 @@ namespace reader_connector.Forms
             // 
             // GrpSetup
             // 
+            this.GrpSetup.Controls.Add(this.BtnCheckConn);
             this.GrpSetup.Controls.Add(this.ComboTcp);
             this.GrpSetup.Controls.Add(this.BtnConnect);
             this.GrpSetup.Controls.Add(this.label2);
@@ -238,6 +240,16 @@ namespace reader_connector.Forms
             this.BtnExit.UseVisualStyleBackColor = true;
             this.BtnExit.Click += new System.EventHandler(this.BtnExit_Click);
             // 
+            // BtnCheckConn
+            // 
+            this.BtnCheckConn.Location = new System.Drawing.Point(239, 44);
+            this.BtnCheckConn.Name = "BtnCheckConn";
+            this.BtnCheckConn.Size = new System.Drawing.Size(75, 23);
+            this.BtnCheckConn.TabIndex = 7;
+            this.BtnCheckConn.Text = "Check";
+            this.BtnCheckConn.UseVisualStyleBackColor = true;
+            this.BtnCheckConn.Click += new System.EventHandler(this.BtnCheckConn_Click);
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -282,5 +294,6 @@ namespace reader_connector.Forms
         private System.Windows.Forms.Button BtnClearLog;
         private System.Windows.Forms.Button BtnExit;
         private System.Windows.Forms.ComboBox ComboTcp;
+        private System.Windows.Forms.Button BtnCheckConn;
     }
 }

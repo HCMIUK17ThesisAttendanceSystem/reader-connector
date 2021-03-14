@@ -112,6 +112,7 @@ namespace reader_connector.Forms
         public void OutPutTagsOver()
         {
             //Thực thi khi dừng chế độ đọc thẻ
+            LogOutput("Read operation finished");
         }
 
         public void PortClosing(string connID)
@@ -148,14 +149,12 @@ namespace reader_connector.Forms
                     ComboTcp.Enabled = false;
                     TxtCourseId.Enabled = false;
                     BtnStart.Enabled = true;
-
                     RFIDReader._RFIDConfig.Stop(tcp);
                 }
                 else
                 {
                     LogOutput("Failed connection to reader D:");
                 }
-
             }
             else
             {
@@ -227,6 +226,18 @@ namespace reader_connector.Forms
         private void BtnExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void BtnCheckConn_Click(object sender, EventArgs e)
+        {
+            if (RFIDReader.CheckConnect(ComboTcp.SelectedValue.ToString()))
+            {
+                LogOutput("Connection normal :D");
+            }
+            else
+            {
+                LogOutput("Connection abnormal!!!");
+            }
         }
     }
 }
