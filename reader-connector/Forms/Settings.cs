@@ -20,8 +20,8 @@ namespace reader_connector.Forms
 {
     public partial class Settings : Form, IAsynchronousMessage
     {
-        //string url = "https://hcmiu-presence.herokuapp.com";
-        string url = "http://localhost:8080";
+        string url = "https://hcmiu-presence.herokuapp.com";
+        //string url = "http://localhost:8080";
 
         public class Room
         {
