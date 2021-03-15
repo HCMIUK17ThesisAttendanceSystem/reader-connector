@@ -165,6 +165,8 @@ namespace reader_connector.Forms
                 BtnStart.Enabled = false;
                 BtnConnect.Text = "Connect";
                 LogOutput("Disconnected");
+                // test
+
             }
         }
 
