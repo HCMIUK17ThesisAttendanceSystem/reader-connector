@@ -13,6 +13,8 @@ using System.Windows.Forms;
 
 using xNet;
 using Quobject.SocketIoClientDotNet.Client;
+using reader_connector.Shared;
+using Newtonsoft.Json;
 
 namespace reader_connector.Forms
 {
@@ -21,30 +23,40 @@ namespace reader_connector.Forms
         string url = "https://hcmiu-presence.herokuapp.com";
         //string url = "http://localhost:8080";
 
-        public class Item
+        public class Room
         {
-            public Item() { }
+            public Room() { }
 
-            public string Value { set; get; }
-            public string Text { set; get; }
+            public string Code { set; get; }
+            public string IpAddress { set; get; }
+        }
+
+        public class Course
+        {
+            public Course() { }
+
+            public string _id { set; get; }
+            public string SubjectName { set; get; }
+            public string SubjectId { set; get; }
         }
         public Settings()
         {
             InitializeComponent();
 
             BtnStart.Enabled = false;
-            List<Item> tcps = new List<Item>();
-            tcps.Add(new Item() { Text = "LA1.605 (10.8.42.28:9090)", Value = "10.8.42.28:9090" });
-            tcps.Add(new Item() { Text = "LA1.302 (10.8.46.51:9090)", Value = "10.8.46.51:9090" });
-            ComboTcp.DataSource = tcps;
-            ComboTcp.DisplayMember = "Text";
-            ComboTcp.ValueMember = "Value";
+            List<Room> rooms = new List<Room>();
+            rooms.Add(new Room() { Code = "LA1.605", IpAddress = "10.8.42.28:9090" });
+            rooms.Add(new Room() { Code = "LA1.302", IpAddress = "10.8.46.51:9090" });
+            ComboTcp.DataSource = rooms;
+            ComboTcp.DisplayMember = "Code";
+            ComboTcp.ValueMember = "IpAddress";
 
             ConnectSocket();
         }
 
         public void ConnectSocket()
         {
+            LogOutput("Connecting to server...");
             var client = IO.Socket(url);
 
             client.On(Socket.EVENT_CONNECT, () =>
@@ -74,6 +86,16 @@ namespace reader_connector.Forms
             });
         }
 
+        private async void GetCurrentCourse()
+        {
+            string roomCode = ComboTcp.GetItemText(ComboTcp.SelectedItem);
+            string uri = $"{url}/reader/current-course/{roomCode}";
+            string response = await RestAPIHelper.Get(uri);
+            Course currentCourse = JsonConvert.DeserializeObject<Course>(response);
+            TxtCourseId.Text = currentCourse._id;
+            LogOutput($"Current course of {roomCode} is {currentCourse.SubjectName} :D");
+        }
+
         private string AddNewRfidTag(string tagTID)
         {
             //TxtLog.Text += tagTID + "\r\n";
@@ -92,7 +114,7 @@ namespace reader_connector.Forms
         private void LogOutput(string output)
         {
             TxtLog.Text += output + "\r\n";
-            TxtLog.SelectionStart = TxtLog.SelectionLength;
+            TxtLog.SelectionStart = TxtLog.Text.Length;
             TxtLog.ScrollToCaret();
         }
 
@@ -140,16 +162,18 @@ namespace reader_connector.Forms
             string tcp = ComboTcp.SelectedValue.ToString();
             if (BtnConnect.Text == "Connect")
             {
-                LogOutput($"Connecting to reader {tcp}");
+                LogOutput($"Connecting to reader {tcp}...");
                 bool cn = RFIDReader.CreateTcpConn(tcp, this); // Connect to reader
                 if (cn)
                 {
                     LogOutput("Connect successfully to reader :D");
                     BtnConnect.Text = "Disconnect";
                     ComboTcp.Enabled = false;
-                    TxtCourseId.Enabled = false;
                     BtnStart.Enabled = true;
                     RFIDReader._RFIDConfig.Stop(tcp);
+
+                    LogOutput("Fetching current course...");
+                    GetCurrentCourse();
                 }
                 else
                 {
