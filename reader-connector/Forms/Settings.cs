@@ -194,6 +194,7 @@ namespace reader_connector.Forms
                     BtnConnect.Text = "Disconnect";
                     ComboTcp.Enabled = false;
                     BtnStart.Enabled = true;
+                    TxtCourseId.Enabled = true;
                     RFIDReader._RFIDConfig.Stop(tcp);
 
                     GetCurrentCourse();
@@ -208,7 +209,7 @@ namespace reader_connector.Forms
                 RFIDReader._RFIDConfig.Stop(tcp); // Stop reading before disconnect
                 RFIDReader.CloseConn(tcp); // Disconnect with reader
                 ComboTcp.Enabled = true;
-                TxtCourseId.Enabled = true;
+                TxtCourseId.Enabled = false;
                 BtnStart.Enabled = false;
                 BtnConnect.Text = "Connect";
                 LogOutput("Disconnected");
@@ -248,6 +249,7 @@ namespace reader_connector.Forms
                     BtnStart.Text = "Stop";
                     BtnConnect.Enabled = false;
                     BtnExit.Enabled = false;
+                    TxtCourseId.Enabled = false;
                 }
                 else
                 {
@@ -262,6 +264,7 @@ namespace reader_connector.Forms
                 LogOutput("Stop reading tag");
                 BtnConnect.Enabled = true;
                 BtnExit.Enabled = true;
+                TxtCourseId.Enabled = true;
             }
         }
 

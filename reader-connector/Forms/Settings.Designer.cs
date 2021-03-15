@@ -62,7 +62,6 @@ namespace reader_connector.Forms
             this.TxtCourseId.Location = new System.Drawing.Point(105, 55);
             this.TxtCourseId.Margin = new System.Windows.Forms.Padding(4);
             this.TxtCourseId.Name = "TxtCourseId";
-            this.TxtCourseId.ReadOnly = true;
             this.TxtCourseId.Size = new System.Drawing.Size(110, 24);
             this.TxtCourseId.TabIndex = 1;
             // 
