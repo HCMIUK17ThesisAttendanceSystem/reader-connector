@@ -60,7 +60,7 @@ namespace reader_connector.Forms
             this.TxtCourseId.Enabled = false;
             this.TxtCourseId.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtCourseId.Location = new System.Drawing.Point(105, 55);
-            this.TxtCourseId.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TxtCourseId.Margin = new System.Windows.Forms.Padding(4);
             this.TxtCourseId.Name = "TxtCourseId";
             this.TxtCourseId.ReadOnly = true;
             this.TxtCourseId.Size = new System.Drawing.Size(110, 24);
@@ -76,9 +76,9 @@ namespace reader_connector.Forms
             this.GrpSetup.Controls.Add(this.TxtCourseId);
             this.GrpSetup.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GrpSetup.Location = new System.Drawing.Point(16, 15);
-            this.GrpSetup.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.GrpSetup.Margin = new System.Windows.Forms.Padding(4);
             this.GrpSetup.Name = "GrpSetup";
-            this.GrpSetup.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.GrpSetup.Padding = new System.Windows.Forms.Padding(4);
             this.GrpSetup.Size = new System.Drawing.Size(331, 91);
             this.GrpSetup.TabIndex = 2;
             this.GrpSetup.TabStop = false;
@@ -87,7 +87,7 @@ namespace reader_connector.Forms
             // BtnCheckConn
             // 
             this.BtnCheckConn.Location = new System.Drawing.Point(223, 54);
-            this.BtnCheckConn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.BtnCheckConn.Margin = new System.Windows.Forms.Padding(4);
             this.BtnCheckConn.Name = "BtnCheckConn";
             this.BtnCheckConn.Size = new System.Drawing.Size(100, 28);
             this.BtnCheckConn.TabIndex = 7;
@@ -100,7 +100,7 @@ namespace reader_connector.Forms
             this.ComboTcp.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboTcp.FormattingEnabled = true;
             this.ComboTcp.Location = new System.Drawing.Point(105, 23);
-            this.ComboTcp.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ComboTcp.Margin = new System.Windows.Forms.Padding(4);
             this.ComboTcp.Name = "ComboTcp";
             this.ComboTcp.Size = new System.Drawing.Size(110, 25);
             this.ComboTcp.TabIndex = 6;
@@ -108,7 +108,7 @@ namespace reader_connector.Forms
             // BtnConnect
             // 
             this.BtnConnect.Location = new System.Drawing.Point(223, 21);
-            this.BtnConnect.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.BtnConnect.Margin = new System.Windows.Forms.Padding(4);
             this.BtnConnect.Name = "BtnConnect";
             this.BtnConnect.Size = new System.Drawing.Size(100, 28);
             this.BtnConnect.TabIndex = 5;
@@ -157,9 +157,9 @@ namespace reader_connector.Forms
             this.GrpSettings.Controls.Add(this.TxtAutosleep);
             this.GrpSettings.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GrpSettings.Location = new System.Drawing.Point(355, 15);
-            this.GrpSettings.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.GrpSettings.Margin = new System.Windows.Forms.Padding(4);
             this.GrpSettings.Name = "GrpSettings";
-            this.GrpSettings.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.GrpSettings.Padding = new System.Windows.Forms.Padding(4);
             this.GrpSettings.Size = new System.Drawing.Size(353, 91);
             this.GrpSettings.TabIndex = 6;
             this.GrpSettings.TabStop = false;
@@ -168,7 +168,7 @@ namespace reader_connector.Forms
             // BtnGetSettings
             // 
             this.BtnGetSettings.Location = new System.Drawing.Point(245, 21);
-            this.BtnGetSettings.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.BtnGetSettings.Margin = new System.Windows.Forms.Padding(4);
             this.BtnGetSettings.Name = "BtnGetSettings";
             this.BtnGetSettings.Size = new System.Drawing.Size(100, 28);
             this.BtnGetSettings.TabIndex = 6;
@@ -179,7 +179,7 @@ namespace reader_connector.Forms
             // BtnSetSettings
             // 
             this.BtnSetSettings.Location = new System.Drawing.Point(245, 52);
-            this.BtnSetSettings.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.BtnSetSettings.Margin = new System.Windows.Forms.Padding(4);
             this.BtnSetSettings.Name = "BtnSetSettings";
             this.BtnSetSettings.Size = new System.Drawing.Size(100, 28);
             this.BtnSetSettings.TabIndex = 5;
@@ -201,7 +201,7 @@ namespace reader_connector.Forms
             // 
             this.TxtTagFilter.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtTagFilter.Location = new System.Drawing.Point(105, 23);
-            this.TxtTagFilter.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TxtTagFilter.Margin = new System.Windows.Forms.Padding(4);
             this.TxtTagFilter.Name = "TxtTagFilter";
             this.TxtTagFilter.Size = new System.Drawing.Size(132, 24);
             this.TxtTagFilter.TabIndex = 0;
@@ -221,7 +221,7 @@ namespace reader_connector.Forms
             // 
             this.TxtAutosleep.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtAutosleep.Location = new System.Drawing.Point(105, 55);
-            this.TxtAutosleep.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TxtAutosleep.Margin = new System.Windows.Forms.Padding(4);
             this.TxtAutosleep.Name = "TxtAutosleep";
             this.TxtAutosleep.Size = new System.Drawing.Size(132, 24);
             this.TxtAutosleep.TabIndex = 1;
@@ -229,10 +229,11 @@ namespace reader_connector.Forms
             // 
             // TxtLog
             // 
-            this.TxtLog.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtLog.Font = new System.Drawing.Font("Calibri", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtLog.Location = new System.Drawing.Point(16, 130);
-            this.TxtLog.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TxtLog.Margin = new System.Windows.Forms.Padding(4);
             this.TxtLog.Name = "TxtLog";
+            this.TxtLog.ReadOnly = true;
             this.TxtLog.Size = new System.Drawing.Size(576, 697);
             this.TxtLog.TabIndex = 7;
             this.TxtLog.Text = "";
@@ -241,7 +242,7 @@ namespace reader_connector.Forms
             // 
             this.BtnStart.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnStart.Location = new System.Drawing.Point(600, 129);
-            this.BtnStart.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.BtnStart.Margin = new System.Windows.Forms.Padding(4);
             this.BtnStart.Name = "BtnStart";
             this.BtnStart.Size = new System.Drawing.Size(100, 28);
             this.BtnStart.TabIndex = 7;
@@ -253,7 +254,7 @@ namespace reader_connector.Forms
             // 
             this.BtnClearLog.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnClearLog.Location = new System.Drawing.Point(600, 165);
-            this.BtnClearLog.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.BtnClearLog.Margin = new System.Windows.Forms.Padding(4);
             this.BtnClearLog.Name = "BtnClearLog";
             this.BtnClearLog.Size = new System.Drawing.Size(100, 28);
             this.BtnClearLog.TabIndex = 8;
@@ -265,7 +266,7 @@ namespace reader_connector.Forms
             // 
             this.BtnExit.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnExit.Location = new System.Drawing.Point(600, 799);
-            this.BtnExit.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.BtnExit.Margin = new System.Windows.Forms.Padding(4);
             this.BtnExit.Name = "BtnExit";
             this.BtnExit.Size = new System.Drawing.Size(100, 28);
             this.BtnExit.TabIndex = 9;
@@ -277,7 +278,7 @@ namespace reader_connector.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(711, 860);
+            this.ClientSize = new System.Drawing.Size(719, 860);
             this.Controls.Add(this.BtnExit);
             this.Controls.Add(this.BtnClearLog);
             this.Controls.Add(this.BtnStart);
@@ -285,10 +286,11 @@ namespace reader_connector.Forms
             this.Controls.Add(this.GrpSettings);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.GrpSetup);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Settings";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Settings";
+            this.Load += new System.EventHandler(this.Settings_Load);
             this.GrpSetup.ResumeLayout(false);
             this.GrpSetup.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();

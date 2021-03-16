@@ -20,8 +20,8 @@ namespace reader_connector.Forms
 {
     public partial class Settings : Form, IAsynchronousMessage
     {
-        string url = "https://hcmiu-presence.herokuapp.com";
-        //string url = "http://localhost:8080";
+        //string url = "https://hcmiu-presence.herokuapp.com";
+        string url = "http://localhost:8080";
 
         public class Room
         {
@@ -38,7 +38,17 @@ namespace reader_connector.Forms
             public string _id { set; get; }
             public string SubjectName { set; get; }
             public string SubjectId { set; get; }
+            public string RoomCode { set; get; }
         }
+
+        public class ScheduledCoursesResponse
+        {
+            public ScheduledCoursesResponse() { }
+
+            public string action { get; set; }
+            public Course[] data { get; set; }
+        }
+
         public Settings()
         {
             InitializeComponent();
@@ -61,8 +71,7 @@ namespace reader_connector.Forms
 
             client.On(Socket.EVENT_CONNECT, () =>
             {
-                LogOutput("Connected to server :D");
-                client.Emit("get-current-courses"); // emit not work
+                LogOutput("Connected to server via Socket.io :D");
             });
 
             client.On(Socket.EVENT_DISCONNECT, (reason) =>
@@ -73,6 +82,7 @@ namespace reader_connector.Forms
             client.On(Socket.EVENT_RECONNECT, () =>
             {
                 LogOutput("Reconnected to server :D");
+                GetCurrentCourse();
             });
 
             client.On("current-courses", response =>
@@ -82,12 +92,26 @@ namespace reader_connector.Forms
 
             client.On("scheduled-courses", response =>
             {
-                LogOutput(response.ToString());
+                string JsonResponse = JsonConvert.SerializeObject(response);
+                ScheduledCoursesResponse res = JsonConvert.DeserializeObject<ScheduledCoursesResponse>(JsonResponse);
+                Course[] scheduledCourses = res.data;
+
+                string roomCode = ComboTcp.GetItemText(ComboTcp.SelectedItem);
+                for (int i = 0; i < scheduledCourses.Length; i++)
+                {
+                    if (scheduledCourses[i].RoomCode == roomCode)
+                    {
+                        TxtCourseId.Text = scheduledCourses[i]._id;
+                        LogOutput($"Current course of {roomCode} is {scheduledCourses[i].SubjectName} :D");
+                        break;
+                    }
+                }
             });
         }
 
         private async void GetCurrentCourse()
         {
+            LogOutput("Fetching current course...");
             string roomCode = ComboTcp.GetItemText(ComboTcp.SelectedItem);
             string uri = $"{url}/reader/current-course/{roomCode}";
             string response = await RestAPIHelper.Get(uri);
@@ -172,7 +196,6 @@ namespace reader_connector.Forms
                     BtnStart.Enabled = true;
                     RFIDReader._RFIDConfig.Stop(tcp);
 
-                    LogOutput("Fetching current course...");
                     GetCurrentCourse();
                 }
                 else
@@ -262,6 +285,11 @@ namespace reader_connector.Forms
             {
                 LogOutput("Connection abnormal!!!");
             }
+        }
+
+        private void Settings_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
