@@ -39,6 +39,8 @@ namespace reader_connector.Forms
             public string SubjectName { set; get; }
             public string SubjectId { set; get; }
             public string RoomCode { set; get; }
+            public int[] Periods { set; get; }
+            public string Weekday { set; get; }
         }
 
         public class ScheduledCoursesResponse
@@ -57,9 +59,9 @@ namespace reader_connector.Forms
             List<Room> rooms = new List<Room>();
             rooms.Add(new Room() { Code = "LA1.605", IpAddress = "10.8.42.28:9090" });
             rooms.Add(new Room() { Code = "LA1.302", IpAddress = "10.8.46.51:9090" });
-            ComboTcp.DataSource = rooms;
-            ComboTcp.DisplayMember = "Code";
-            ComboTcp.ValueMember = "IpAddress";
+            ComboRoom.DataSource = rooms;
+            ComboRoom.DisplayMember = "Code";
+            ComboRoom.ValueMember = "Code";
 
             ConnectSocket();
         }
@@ -76,7 +78,7 @@ namespace reader_connector.Forms
 
             client.On(Socket.EVENT_DISCONNECT, (reason) =>
             {
-                LogOutput($"Disconnected from server due to: {reason}\r\n");
+                LogOutput($"Disconnected from server due to:{reason}\r\n");
             });
 
             client.On(Socket.EVENT_RECONNECT, () =>
@@ -96,28 +98,54 @@ namespace reader_connector.Forms
                 ScheduledCoursesResponse res = JsonConvert.DeserializeObject<ScheduledCoursesResponse>(JsonResponse);
                 Course[] scheduledCourses = res.data;
 
-                string roomCode = ComboTcp.GetItemText(ComboTcp.SelectedItem);
+                string roomCode = ComboRoom.GetItemText(ComboRoom.SelectedItem);
                 for (int i = 0; i < scheduledCourses.Length; i++)
                 {
                     if (scheduledCourses[i].RoomCode == roomCode)
                     {
-                        TxtCourseId.Text = scheduledCourses[i]._id;
-                        LogOutput($"Current course of {roomCode} is {scheduledCourses[i].SubjectName} :D");
+                        Course course = scheduledCourses[i];
+                        TxtCourseId.Text = course._id;
+                        LogOutput($"Current course of {roomCode} is {course.SubjectName} :D\n" +
+                            $"On {GetWeekdayString(course.Weekday)}, " +
+                            $"periods {course.Periods[0]} - {course.Periods[course.Periods.Length - 1]}");
                         break;
                     }
                 }
             });
         }
 
+        private string GetWeekdayString(string Number)
+        {
+            switch (Number)
+            {
+                case "1":
+                    return "monday";
+                case "2":
+                    return "tuesday";
+                case "3":
+                    return "wednesday";
+                case "4":
+                    return "thursday";
+                case "5":
+                    return "friday";
+                case "6":
+                    return "saturday";
+                default:
+                    return "unknown weekday";
+            }
+        }
+
         private async void GetCurrentCourse()
         {
             LogOutput("Fetching current course...");
-            string roomCode = ComboTcp.GetItemText(ComboTcp.SelectedItem);
+            string roomCode = ComboRoom.GetItemText(ComboRoom.SelectedItem);
             string uri = $"{url}/reader/current-course/{roomCode}";
             string response = await RestAPIHelper.Get(uri);
             Course currentCourse = JsonConvert.DeserializeObject<Course>(response);
             TxtCourseId.Text = currentCourse._id;
-            LogOutput($"Current course of {roomCode} is {currentCourse.SubjectName} :D");
+            LogOutput($"Current course of {roomCode} is {currentCourse.SubjectName} :D\n" +
+                $"On {GetWeekdayString(currentCourse.Weekday)}, " +
+                $"periods {currentCourse.Periods[0]} - {currentCourse.Periods[currentCourse.Periods.Length - 1]}");
         }
 
         private string AddNewRfidTag(string tagTID)
@@ -181,18 +209,21 @@ namespace reader_connector.Forms
 
         }
 
-        private void BtnConnect_Click(object sender, EventArgs e)
+        private void BtnTcpConnect_Click(object sender, EventArgs e)
         {
-            string tcp = ComboTcp.SelectedValue.ToString();
-            if (BtnConnect.Text == "Connect")
+            string tcp = TxtTcp.Text;
+            if (BtnTcpConnect.Text == "TCP connect")
             {
                 LogOutput($"Connecting to reader {tcp}...");
                 bool cn = RFIDReader.CreateTcpConn(tcp, this); // Connect to reader
                 if (cn)
                 {
                     LogOutput("Connect successfully to reader :D");
-                    BtnConnect.Text = "Disconnect";
-                    ComboTcp.Enabled = false;
+                    BtnTcpConnect.Text = "Disconnect";
+                    ComboRoom.Enabled = false;
+                    TxtSerial.Enabled = false;
+                    TxtTcp.Enabled = false;
+                    BtnSerialConnect.Enabled = false;
                     BtnStart.Enabled = true;
                     TxtCourseId.Enabled = true;
                     RFIDReader._RFIDConfig.Stop(tcp);
@@ -208,10 +239,54 @@ namespace reader_connector.Forms
             {
                 RFIDReader._RFIDConfig.Stop(tcp); // Stop reading before disconnect
                 RFIDReader.CloseConn(tcp); // Disconnect with reader
-                ComboTcp.Enabled = true;
+                ComboRoom.Enabled = true;
+                TxtSerial.Enabled = true;
+                TxtTcp.Enabled = true;
                 TxtCourseId.Enabled = false;
+                BtnSerialConnect.Enabled = true;
                 BtnStart.Enabled = false;
-                BtnConnect.Text = "Connect";
+                BtnTcpConnect.Text = "TCP connect";
+                LogOutput("Disconnected");
+            }
+        }
+
+        private void BtnSerialConnect_Click(object sender, EventArgs e)
+        {
+            string serial = TxtSerial.Text;
+            if (BtnTcpConnect.Text == "Serial connect")
+            {
+                LogOutput($"Connecting to reader {serial}...");
+                bool cn = RFIDReader.CreateSerialConn(serial, this); // Connect to reader
+                if (cn)
+                {
+                    LogOutput("Connect successfully to reader :D");
+                    BtnTcpConnect.Text = "Disconnect";
+                    ComboRoom.Enabled = false;
+                    TxtSerial.Enabled = false;
+                    TxtTcp.Enabled = false;
+                    BtnTcpConnect.Enabled = false;
+                    BtnStart.Enabled = true;
+                    TxtCourseId.Enabled = true;
+                    RFIDReader._RFIDConfig.Stop(serial);
+
+                    GetCurrentCourse();
+                }
+                else
+                {
+                    LogOutput("Failed connection to reader D:");
+                }
+            }
+            else
+            {
+                RFIDReader._RFIDConfig.Stop(serial); // Stop reading before disconnect
+                RFIDReader.CloseConn(serial); // Disconnect with reader
+                ComboRoom.Enabled = true;
+                TxtSerial.Enabled = true;
+                TxtTcp.Enabled = true;
+                TxtCourseId.Enabled = false;
+                BtnTcpConnect.Enabled = true;
+                BtnStart.Enabled = false;
+                BtnTcpConnect.Text = "Serial connect";
                 LogOutput("Disconnected");
             }
         }
@@ -223,7 +298,7 @@ namespace reader_connector.Forms
 
         private void BtnSetSettings_Click(object sender, EventArgs e)
         {
-            string tcp = ComboTcp.SelectedValue.ToString();
+            string tcp = ComboRoom.SelectedValue.ToString();
 
             // Stop reading the same tag for 1 minute (6000 centiseconds) (value = 6000)
             int stup = RFIDReader._RFIDConfig.SetTagUpdateParam(tcp, int.Parse(TxtTagFilter.Text), 0);
@@ -238,7 +313,7 @@ namespace reader_connector.Forms
 
         private void BtnStart_Click(object sender, EventArgs e)
         {
-            string tcp = ComboTcp.SelectedValue.ToString();
+            string tcp = ComboRoom.SelectedValue.ToString();
             if (BtnStart.Text == "Start")
             {
                 // Start reading with antenna 1, inventory mode (continuous reading)
@@ -247,7 +322,7 @@ namespace reader_connector.Forms
                 {
                     LogOutput("Reading tags :D");
                     BtnStart.Text = "Stop";
-                    BtnConnect.Enabled = false;
+                    BtnTcpConnect.Enabled = false;
                     BtnExit.Enabled = false;
                     TxtCourseId.Enabled = false;
                 }
@@ -262,7 +337,7 @@ namespace reader_connector.Forms
                 RFIDReader._RFIDConfig.Stop(tcp); 
                 BtnStart.Text = "Start";
                 LogOutput("Stop reading tag");
-                BtnConnect.Enabled = true;
+                BtnTcpConnect.Enabled = true;
                 BtnExit.Enabled = true;
                 TxtCourseId.Enabled = true;
             }
@@ -280,7 +355,7 @@ namespace reader_connector.Forms
 
         private void BtnCheckConn_Click(object sender, EventArgs e)
         {
-            if (RFIDReader.CheckConnect(ComboTcp.SelectedValue.ToString()))
+            if (RFIDReader.CheckConnect(ComboRoom.SelectedValue.ToString()))
             {
                 LogOutput("Connection normal :D");
             }
