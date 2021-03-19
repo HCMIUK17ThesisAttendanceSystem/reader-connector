@@ -135,17 +135,31 @@ namespace reader_connector.Forms
             }
         }
 
+        private bool GetIsConnectedTcp()
+        {
+            if (BtnTcpConnect.Text == "Disconnect")
+                return true;
+            else return false;
+        }
+
         private async void GetCurrentCourse()
         {
             LogOutput("Fetching current course...");
             string roomCode = ComboRoom.GetItemText(ComboRoom.SelectedItem);
             string uri = $"{url}/reader/current-course/{roomCode}";
             string response = await RestAPIHelper.Get(uri);
-            Course currentCourse = JsonConvert.DeserializeObject<Course>(response);
-            TxtCourseId.Text = currentCourse._id;
-            LogOutput($"Current course of {roomCode} is {currentCourse.SubjectName} :D\n" +
-                $"On {GetWeekdayString(currentCourse.Weekday)}, " +
-                $"periods {currentCourse.Periods[0]} - {currentCourse.Periods[currentCourse.Periods.Length - 1]}");
+            if (response.Length > 5)
+            {
+                Course currentCourse = JsonConvert.DeserializeObject<Course>(response);
+                TxtCourseId.Text = currentCourse._id;
+                LogOutput($"Current course of {roomCode} is {currentCourse.SubjectName} :D\n" +
+                    $"On {GetWeekdayString(currentCourse.Weekday)}, " +
+                    $"periods {currentCourse.Periods[0]} - {currentCourse.Periods[currentCourse.Periods.Length - 1]}");
+            } 
+            else
+            {
+                LogOutput($"There is no current course for {roomCode}! Enjoy :D");
+            }
         }
 
         private string AddNewRfidTag(string tagTID)
@@ -177,7 +191,7 @@ namespace reader_connector.Forms
 
         public void OutPutTags(Tag_Model tag)
         {
-            Console.WriteLine("Someone is near the door :D");
+            LogOutput("Detecting tag(s)...");
             //string res = AddNewRfidTag(tag.TID);
             string res = CheckAttendance(tag.TID, TxtCourseId.Text);
             LogOutput(res);
@@ -253,14 +267,14 @@ namespace reader_connector.Forms
         private void BtnSerialConnect_Click(object sender, EventArgs e)
         {
             string serial = TxtSerial.Text;
-            if (BtnTcpConnect.Text == "Serial connect")
+            if (BtnSerialConnect.Text == "Serial connect")
             {
                 LogOutput($"Connecting to reader {serial}...");
                 bool cn = RFIDReader.CreateSerialConn(serial, this); // Connect to reader
                 if (cn)
                 {
                     LogOutput("Connect successfully to reader :D");
-                    BtnTcpConnect.Text = "Disconnect";
+                    BtnSerialConnect.Text = "Disconnect";
                     ComboRoom.Enabled = false;
                     TxtSerial.Enabled = false;
                     TxtTcp.Enabled = false;
@@ -286,7 +300,7 @@ namespace reader_connector.Forms
                 TxtCourseId.Enabled = false;
                 BtnTcpConnect.Enabled = true;
                 BtnStart.Enabled = false;
-                BtnTcpConnect.Text = "Serial connect";
+                BtnSerialConnect.Text = "Serial connect";
                 LogOutput("Disconnected");
             }
         }
@@ -298,26 +312,36 @@ namespace reader_connector.Forms
 
         private void BtnSetSettings_Click(object sender, EventArgs e)
         {
-            string tcp = ComboRoom.SelectedValue.ToString();
-
+            string connection = "";
+            bool isTcpConnect = GetIsConnectedTcp();
+            if (isTcpConnect)
+                connection = TxtTcp.Text;
+            else
+                connection = TxtSerial.Text;
             // Stop reading the same tag for 1 minute (6000 centiseconds) (value = 6000)
-            int stup = RFIDReader._RFIDConfig.SetTagUpdateParam(tcp, int.Parse(TxtTagFilter.Text), 0);
+            int stup = RFIDReader._RFIDConfig.SetTagUpdateParam(connection, int.Parse(TxtTagFilter.Text), 0);
             if (stup == 0) LogOutput("Set tag update filter successfully :D");
             else LogOutput("Set tag update filter failed D:");
 
             // auto sleep in 1/2 second (value = "50")
-            int srasp = RFIDReader._RFIDConfig.SetReaderAutoSleepParam(tcp, true, TxtAutosleep.Text); 
+            int srasp = RFIDReader._RFIDConfig.SetReaderAutoSleepParam(connection, true, TxtAutosleep.Text); 
             if (srasp == 0) LogOutput("Set auto sleep successfully :D");
             else LogOutput("Set auto sleep failed D:");
         }
 
         private void BtnStart_Click(object sender, EventArgs e)
         {
-            string tcp = ComboRoom.SelectedValue.ToString();
+            string connection = "";
+            bool isTcpConnect = GetIsConnectedTcp();
+            if (isTcpConnect)
+                connection = TxtTcp.Text;
+            else
+                connection = TxtSerial.Text;
+
             if (BtnStart.Text == "Start")
             {
                 // Start reading with antenna 1, inventory mode (continuous reading)
-                int st = RFIDReader._Tag6C.GetEPC_TID(tcp, eAntennaNo._1, eReadType.Inventory); 
+                int st = RFIDReader._Tag6C.GetEPC_TID(connection, eAntennaNo._1, eReadType.Inventory); 
                 if (st == 0)
                 {
                     LogOutput("Reading tags :D");
@@ -334,7 +358,7 @@ namespace reader_connector.Forms
             else
             {
                 // Reading mode off
-                RFIDReader._RFIDConfig.Stop(tcp); 
+                RFIDReader._RFIDConfig.Stop(connection); 
                 BtnStart.Text = "Start";
                 LogOutput("Stop reading tag");
                 BtnTcpConnect.Enabled = true;
@@ -355,7 +379,14 @@ namespace reader_connector.Forms
 
         private void BtnCheckConn_Click(object sender, EventArgs e)
         {
-            if (RFIDReader.CheckConnect(ComboRoom.SelectedValue.ToString()))
+            string connection = "";
+            bool isTcpConnect = GetIsConnectedTcp();
+            if (isTcpConnect)
+                connection = TxtTcp.Text;
+            else
+                connection = TxtSerial.Text;
+
+            if (RFIDReader.CheckConnect(connection))
             {
                 LogOutput("Connection normal :D");
             }
