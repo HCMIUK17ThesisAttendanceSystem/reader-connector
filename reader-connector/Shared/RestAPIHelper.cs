@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace reader_connector.Shared
 {
@@ -15,6 +16,12 @@ namespace reader_connector.Shared
             {
                 using (HttpResponseMessage res = await client.GetAsync(url))
                 {
+                    if (!res.IsSuccessStatusCode)
+                    {
+                        //MessageBox.Show($"Error occurred, the status code is: {res.StatusCode}");
+                        return string.Empty;
+                    }
+                        
                     using (HttpContent content = res.Content)
                     {
                         string data = await content.ReadAsStringAsync();

@@ -148,15 +148,16 @@ namespace reader_connector.Forms
             string roomCode = ComboRoom.GetItemText(ComboRoom.SelectedItem);
             string uri = $"{url}/reader/current-course/{roomCode}";
             string response = await RestAPIHelper.Get(uri);
-            if (response.Length > 5)
+            try
             {
                 Course currentCourse = JsonConvert.DeserializeObject<Course>(response);
                 TxtCourseId.Text = currentCourse._id;
                 LogOutput($"Current course of {roomCode} is {currentCourse.SubjectName} :D\n" +
                     $"On {GetWeekdayString(currentCourse.Weekday)}, " +
                     $"periods {currentCourse.Periods[0]} - {currentCourse.Periods[currentCourse.Periods.Length - 1]}");
-            } 
-            else
+
+            }
+            catch (NullReferenceException nullE)
             {
                 LogOutput($"There is no current course for {roomCode}! Enjoy :D");
             }
@@ -324,7 +325,7 @@ namespace reader_connector.Forms
             else LogOutput("Set tag update filter failed D:");
 
             // auto sleep in 1/2 second (value = "50")
-            int srasp = RFIDReader._RFIDConfig.SetReaderAutoSleepParam(connection, true, TxtAutosleep.Text); 
+            int srasp = RFIDReader._RFIDConfig.SetReaderAutoSleepParam(connection, true, TxtAutosleep.Text);
             if (srasp == 0) LogOutput("Set auto sleep successfully :D");
             else LogOutput("Set auto sleep failed D:");
         }
@@ -341,7 +342,7 @@ namespace reader_connector.Forms
             if (BtnStart.Text == "Start")
             {
                 // Start reading with antenna 1, inventory mode (continuous reading)
-                int st = RFIDReader._Tag6C.GetEPC_TID(connection, eAntennaNo._1, eReadType.Inventory); 
+                int st = RFIDReader._Tag6C.GetEPC_TID(connection, eAntennaNo._1, eReadType.Inventory);
                 if (st == 0)
                 {
                     LogOutput("Reading tags :D");
@@ -358,7 +359,7 @@ namespace reader_connector.Forms
             else
             {
                 // Reading mode off
-                RFIDReader._RFIDConfig.Stop(connection); 
+                RFIDReader._RFIDConfig.Stop(connection);
                 BtnStart.Text = "Start";
                 LogOutput("Stop reading tag");
                 BtnTcpConnect.Enabled = true;
