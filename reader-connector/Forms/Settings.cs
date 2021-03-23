@@ -103,15 +103,32 @@ namespace reader_connector.Forms
                 {
                     if (scheduledCourses[i].RoomCode == roomCode)
                     {
-                        Course course = scheduledCourses[i];
-                        TxtCourseId.Text = course._id;
-                        LogOutput($"Current course of {roomCode} is {course.SubjectName} :D\n" +
-                            $"On {GetWeekdayString(course.Weekday)}, " +
-                            $"periods {course.Periods[0]} - {course.Periods[course.Periods.Length - 1]}");
-                        break;
+                        SetCourseProp(scheduledCourses[i]);
+                        return;
                     }
                 }
+                SetNoCourseProp(roomCode);
             });
+        }
+
+        private void SetCourseProp(Course course)
+        {
+            TxtCourseId.Text = course._id;
+            string periods = $"{course.Periods[0]} - {course.Periods[course.Periods.Length - 1]}";
+            string weekday = GetWeekdayString(course.Weekday);
+            LogOutput($"Current course of {course.RoomCode} is {course.SubjectName} :D\n" +
+                $"On {weekday}, " +
+                $"periods {periods}");
+            LabelCourseName.Text = course.SubjectName;
+            LabelTime.Text = $"{weekday} ({periods})";
+        }
+
+        private void SetNoCourseProp(string roomCode)
+        {
+            LogOutput($"There is no current course for {roomCode}! Enjoy :D");
+            LabelCourseName.Text = $"No course now! Enjoy :D";
+            LabelTime.Text = "";
+            TxtCourseId.Text = "nocourse";
         }
 
         private string GetWeekdayString(string Number)
@@ -119,17 +136,17 @@ namespace reader_connector.Forms
             switch (Number)
             {
                 case "1":
-                    return "monday";
+                    return "Monday";
                 case "2":
-                    return "tuesday";
+                    return "Tuesday";
                 case "3":
-                    return "wednesday";
+                    return "Wednesday";
                 case "4":
-                    return "thursday";
+                    return "Thursday";
                 case "5":
-                    return "friday";
+                    return "Friday";
                 case "6":
-                    return "saturday";
+                    return "Saturday";
                 default:
                     return "unknown weekday";
             }
@@ -151,15 +168,11 @@ namespace reader_connector.Forms
             try
             {
                 Course currentCourse = JsonConvert.DeserializeObject<Course>(response);
-                TxtCourseId.Text = currentCourse._id;
-                LogOutput($"Current course of {roomCode} is {currentCourse.SubjectName} :D\n" +
-                    $"On {GetWeekdayString(currentCourse.Weekday)}, " +
-                    $"periods {currentCourse.Periods[0]} - {currentCourse.Periods[currentCourse.Periods.Length - 1]}");
-
+                SetCourseProp(currentCourse);
             }
             catch (NullReferenceException nullE)
             {
-                LogOutput($"There is no current course for {roomCode}! Enjoy :D");
+                SetNoCourseProp(roomCode);
             }
         }
 
@@ -330,7 +343,7 @@ namespace reader_connector.Forms
             else LogOutput("Set auto sleep failed D:");
         }
 
-        private void BtnStart_Click(object sender, EventArgs e)
+        private void ToggleReadTags()
         {
             string connection = "";
             bool isTcpConnect = GetIsConnectedTcp();
@@ -366,6 +379,11 @@ namespace reader_connector.Forms
                 BtnExit.Enabled = true;
                 TxtCourseId.Enabled = true;
             }
+        }
+
+        private void BtnStart_Click(object sender, EventArgs e)
+        {
+            ToggleReadTags();
         }
 
         private void BtnClearLog_Click(object sender, EventArgs e)

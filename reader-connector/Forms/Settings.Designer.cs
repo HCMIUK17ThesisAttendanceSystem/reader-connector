@@ -56,6 +56,8 @@ namespace reader_connector.Forms
             this.BtnStart = new System.Windows.Forms.Button();
             this.BtnClearLog = new System.Windows.Forms.Button();
             this.BtnExit = new System.Windows.Forms.Button();
+            this.LabelCourseName = new System.Windows.Forms.Label();
+            this.LabelTime = new System.Windows.Forms.Label();
             this.GrpSetup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.GrpSettings.SuspendLayout();
@@ -209,6 +211,8 @@ namespace reader_connector.Forms
             // 
             // GrpSettings
             // 
+            this.GrpSettings.Controls.Add(this.LabelTime);
+            this.GrpSettings.Controls.Add(this.LabelCourseName);
             this.GrpSettings.Controls.Add(this.BtnGetSettings);
             this.GrpSettings.Controls.Add(this.BtnSetSettings);
             this.GrpSettings.Controls.Add(this.label4);
@@ -228,7 +232,7 @@ namespace reader_connector.Forms
             // 
             // BtnGetSettings
             // 
-            this.BtnGetSettings.Location = new System.Drawing.Point(245, 21);
+            this.BtnGetSettings.Location = new System.Drawing.Point(151, 22);
             this.BtnGetSettings.Margin = new System.Windows.Forms.Padding(4);
             this.BtnGetSettings.Name = "BtnGetSettings";
             this.BtnGetSettings.Size = new System.Drawing.Size(100, 28);
@@ -239,7 +243,7 @@ namespace reader_connector.Forms
             // 
             // BtnSetSettings
             // 
-            this.BtnSetSettings.Location = new System.Drawing.Point(245, 52);
+            this.BtnSetSettings.Location = new System.Drawing.Point(151, 53);
             this.BtnSetSettings.Margin = new System.Windows.Forms.Padding(4);
             this.BtnSetSettings.Name = "BtnSetSettings";
             this.BtnSetSettings.Size = new System.Drawing.Size(100, 28);
@@ -264,7 +268,7 @@ namespace reader_connector.Forms
             this.TxtTagFilter.Location = new System.Drawing.Point(105, 23);
             this.TxtTagFilter.Margin = new System.Windows.Forms.Padding(4);
             this.TxtTagFilter.Name = "TxtTagFilter";
-            this.TxtTagFilter.Size = new System.Drawing.Size(132, 24);
+            this.TxtTagFilter.Size = new System.Drawing.Size(38, 24);
             this.TxtTagFilter.TabIndex = 0;
             this.TxtTagFilter.Text = "6000";
             // 
@@ -284,7 +288,7 @@ namespace reader_connector.Forms
             this.TxtAutosleep.Location = new System.Drawing.Point(105, 55);
             this.TxtAutosleep.Margin = new System.Windows.Forms.Padding(4);
             this.TxtAutosleep.Name = "TxtAutosleep";
-            this.TxtAutosleep.Size = new System.Drawing.Size(132, 24);
+            this.TxtAutosleep.Size = new System.Drawing.Size(38, 24);
             this.TxtAutosleep.TabIndex = 1;
             this.TxtAutosleep.Text = "50";
             // 
@@ -346,6 +350,25 @@ namespace reader_connector.Forms
             this.BtnExit.UseVisualStyleBackColor = true;
             this.BtnExit.Click += new System.EventHandler(this.BtnExit_Click);
             // 
+            // LabelCourseName
+            // 
+            this.LabelCourseName.AutoSize = true;
+            this.LabelCourseName.Font = new System.Drawing.Font("Calibri", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelCourseName.Location = new System.Drawing.Point(284, 17);
+            this.LabelCourseName.Name = "LabelCourseName";
+            this.LabelCourseName.Size = new System.Drawing.Size(195, 29);
+            this.LabelCourseName.TabIndex = 8;
+            this.LabelCourseName.Text = "No Current Course";
+            // 
+            // LabelTime
+            // 
+            this.LabelTime.AutoSize = true;
+            this.LabelTime.Font = new System.Drawing.Font("Calibri", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelTime.Location = new System.Drawing.Point(284, 49);
+            this.LabelTime.Name = "LabelTime";
+            this.LabelTime.Size = new System.Drawing.Size(0, 29);
+            this.LabelTime.TabIndex = 9;
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -402,5 +425,7 @@ namespace reader_connector.Forms
         private System.Windows.Forms.TextBox TxtSerial;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox TxtTcp;
+        private System.Windows.Forms.Label LabelTime;
+        private System.Windows.Forms.Label LabelCourseName;
     }
 }
