@@ -150,7 +150,7 @@ namespace reader_connector.Forms
                 if (BtnTcpConnect.Text == "Disconnect")
                     BtnTcpConnect.Enabled = true;
                 else
-                    BtnSerialConnect.Enabled = true; 
+                    BtnSerialConnect.Enabled = true;
                 BtnExit.Enabled = true;
                 TxtCourseId.Enabled = true;
             }
@@ -257,16 +257,26 @@ namespace reader_connector.Forms
 
         private void CheckAttendance(string tagTID, string courseId)
         {
+            if (courseId == "nocourse")
+                return;
             HttpRequest request = new HttpRequest();
             string response = request.Post($"{url}/reader/attendance?rfidTag={tagTID}&courseId={courseId}").ToString();
             Student student = JsonConvert.DeserializeObject<Student>(response);
-            if (student.Name != "Unknown")
+            if (student.Name != "Unknown" && student.Name != null)
+            {
                 if (student.Registered)
+                {
                     LogOutput($"{student.Name} checked attendance successfully :D");
+                }
                 else
+                {
                     LogOutput($"{student.Name} did not registered for this class :D");
+                }
+            }
             else
+            {
                 LogOutput("Unknown tag data D:");
+            }
         }
 
         private void LogOutput(string output)

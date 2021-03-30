@@ -10,6 +10,28 @@ namespace reader_connector.Shared
 {
     class RestAPIHelper
     {
+        public static async Task<string> Post(string url, HttpContent httpContent = null)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                using (HttpResponseMessage res = await client.PostAsync(url, httpContent))
+                {
+                    if (!res.IsSuccessStatusCode)
+                    {
+                        return string.Empty;
+                    }
+
+                    using (HttpContent content = res.Content)
+                    {
+                        string data = await content.ReadAsStringAsync();
+                        if (data != null)
+                            return data;
+                    }
+                }
+            }
+            return string.Empty;
+        }
+
         public static async Task<string> Get(string url)
         {
             using (HttpClient client = new HttpClient())
