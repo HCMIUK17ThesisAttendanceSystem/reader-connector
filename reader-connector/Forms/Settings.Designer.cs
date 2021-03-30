@@ -45,7 +45,8 @@ namespace reader_connector.Forms
             this.BtnCheckConn = new System.Windows.Forms.Button();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.GrpSettings = new System.Windows.Forms.GroupBox();
-            this.BtnGetSettings = new System.Windows.Forms.Button();
+            this.LabelTime = new System.Windows.Forms.Label();
+            this.LabelCourseName = new System.Windows.Forms.Label();
             this.BtnSetSettings = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.TxtTagFilter = new System.Windows.Forms.TextBox();
@@ -56,11 +57,15 @@ namespace reader_connector.Forms
             this.BtnStart = new System.Windows.Forms.Button();
             this.BtnClearLog = new System.Windows.Forms.Button();
             this.BtnExit = new System.Windows.Forms.Button();
-            this.LabelCourseName = new System.Windows.Forms.Label();
-            this.LabelTime = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.bindingSource2 = new System.Windows.Forms.BindingSource(this.components);
+            this.ComboMidANTPower = new System.Windows.Forms.ComboBox();
+            this.ComboStartANTPower = new System.Windows.Forms.ComboBox();
             this.GrpSetup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.GrpSettings.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource2)).BeginInit();
             this.SuspendLayout();
             // 
             // TxtCourseId
@@ -108,7 +113,7 @@ namespace reader_connector.Forms
             // 
             // BtnSerialConnect
             // 
-            this.BtnSerialConnect.Location = new System.Drawing.Point(555, 69);
+            this.BtnSerialConnect.Location = new System.Drawing.Point(555, 76);
             this.BtnSerialConnect.Margin = new System.Windows.Forms.Padding(4);
             this.BtnSerialConnect.Name = "BtnSerialConnect";
             this.BtnSerialConnect.Size = new System.Drawing.Size(127, 28);
@@ -120,17 +125,17 @@ namespace reader_connector.Forms
             // TxtSerial
             // 
             this.TxtSerial.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtSerial.Location = new System.Drawing.Point(397, 71);
+            this.TxtSerial.Location = new System.Drawing.Point(397, 78);
             this.TxtSerial.Margin = new System.Windows.Forms.Padding(4);
             this.TxtSerial.Name = "TxtSerial";
             this.TxtSerial.Size = new System.Drawing.Size(150, 24);
             this.TxtSerial.TabIndex = 12;
-            this.TxtSerial.Text = "COM4:115200";
+            this.TxtSerial.Text = "COM3:115200";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(460, 44);
+            this.label8.Location = new System.Drawing.Point(335, 50);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(25, 21);
@@ -140,7 +145,7 @@ namespace reader_connector.Forms
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(335, 74);
+            this.label7.Location = new System.Drawing.Point(335, 81);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(54, 21);
@@ -200,10 +205,10 @@ namespace reader_connector.Forms
             // 
             // BtnCheckConn
             // 
-            this.BtnCheckConn.Location = new System.Drawing.Point(555, 51);
+            this.BtnCheckConn.Location = new System.Drawing.Point(555, 54);
             this.BtnCheckConn.Margin = new System.Windows.Forms.Padding(4);
             this.BtnCheckConn.Name = "BtnCheckConn";
-            this.BtnCheckConn.Size = new System.Drawing.Size(127, 28);
+            this.BtnCheckConn.Size = new System.Drawing.Size(127, 27);
             this.BtnCheckConn.TabIndex = 7;
             this.BtnCheckConn.Text = "Check Reader";
             this.BtnCheckConn.UseVisualStyleBackColor = true;
@@ -211,9 +216,10 @@ namespace reader_connector.Forms
             // 
             // GrpSettings
             // 
-            this.GrpSettings.Controls.Add(this.LabelTime);
-            this.GrpSettings.Controls.Add(this.LabelCourseName);
-            this.GrpSettings.Controls.Add(this.BtnGetSettings);
+            this.GrpSettings.Controls.Add(this.ComboStartANTPower);
+            this.GrpSettings.Controls.Add(this.ComboMidANTPower);
+            this.GrpSettings.Controls.Add(this.label10);
+            this.GrpSettings.Controls.Add(this.label9);
             this.GrpSettings.Controls.Add(this.BtnSetSettings);
             this.GrpSettings.Controls.Add(this.label4);
             this.GrpSettings.Controls.Add(this.TxtTagFilter);
@@ -230,25 +236,35 @@ namespace reader_connector.Forms
             this.GrpSettings.TabStop = false;
             this.GrpSettings.Text = "Settings";
             // 
-            // BtnGetSettings
+            // LabelTime
             // 
-            this.BtnGetSettings.Location = new System.Drawing.Point(151, 22);
-            this.BtnGetSettings.Margin = new System.Windows.Forms.Padding(4);
-            this.BtnGetSettings.Name = "BtnGetSettings";
-            this.BtnGetSettings.Size = new System.Drawing.Size(100, 28);
-            this.BtnGetSettings.TabIndex = 6;
-            this.BtnGetSettings.Text = "Get";
-            this.BtnGetSettings.UseVisualStyleBackColor = true;
-            this.BtnGetSettings.Click += new System.EventHandler(this.BtnGetSettings_Click);
+            this.LabelTime.AutoSize = true;
+            this.LabelTime.Font = new System.Drawing.Font("Calibri", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelTime.Location = new System.Drawing.Point(23, 280);
+            this.LabelTime.Name = "LabelTime";
+            this.LabelTime.Size = new System.Drawing.Size(0, 29);
+            this.LabelTime.TabIndex = 9;
+            this.LabelTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // LabelCourseName
+            // 
+            this.LabelCourseName.AutoSize = true;
+            this.LabelCourseName.Font = new System.Drawing.Font("Calibri", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelCourseName.Location = new System.Drawing.Point(23, 238);
+            this.LabelCourseName.Name = "LabelCourseName";
+            this.LabelCourseName.Size = new System.Drawing.Size(0, 29);
+            this.LabelCourseName.TabIndex = 8;
+            this.LabelCourseName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // BtnSetSettings
             // 
-            this.BtnSetSettings.Location = new System.Drawing.Point(151, 53);
+            this.BtnSetSettings.Location = new System.Drawing.Point(555, 23);
             this.BtnSetSettings.Margin = new System.Windows.Forms.Padding(4);
             this.BtnSetSettings.Name = "BtnSetSettings";
-            this.BtnSetSettings.Size = new System.Drawing.Size(100, 28);
+            this.BtnSetSettings.Size = new System.Drawing.Size(127, 28);
             this.BtnSetSettings.TabIndex = 5;
-            this.BtnSetSettings.Text = "Set";
+            this.BtnSetSettings.Text = "Set Parameters";
+            this.BtnSetSettings.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.BtnSetSettings.UseVisualStyleBackColor = true;
             this.BtnSetSettings.Click += new System.EventHandler(this.BtnSetSettings_Click);
             // 
@@ -268,9 +284,8 @@ namespace reader_connector.Forms
             this.TxtTagFilter.Location = new System.Drawing.Point(105, 23);
             this.TxtTagFilter.Margin = new System.Windows.Forms.Padding(4);
             this.TxtTagFilter.Name = "TxtTagFilter";
-            this.TxtTagFilter.Size = new System.Drawing.Size(38, 24);
+            this.TxtTagFilter.Size = new System.Drawing.Size(118, 24);
             this.TxtTagFilter.TabIndex = 0;
-            this.TxtTagFilter.Text = "6000";
             // 
             // label5
             // 
@@ -285,18 +300,17 @@ namespace reader_connector.Forms
             // TxtAutosleep
             // 
             this.TxtAutosleep.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtAutosleep.Location = new System.Drawing.Point(105, 55);
+            this.TxtAutosleep.Location = new System.Drawing.Point(105, 58);
             this.TxtAutosleep.Margin = new System.Windows.Forms.Padding(4);
             this.TxtAutosleep.Name = "TxtAutosleep";
-            this.TxtAutosleep.Size = new System.Drawing.Size(38, 24);
+            this.TxtAutosleep.Size = new System.Drawing.Size(118, 24);
             this.TxtAutosleep.TabIndex = 1;
-            this.TxtAutosleep.Text = "50";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(25, 230);
+            this.label3.Location = new System.Drawing.Point(24, 309);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(34, 21);
@@ -306,18 +320,18 @@ namespace reader_connector.Forms
             // TxtLog
             // 
             this.TxtLog.Font = new System.Drawing.Font("Calibri", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtLog.Location = new System.Drawing.Point(16, 250);
+            this.TxtLog.Location = new System.Drawing.Point(16, 334);
             this.TxtLog.Margin = new System.Windows.Forms.Padding(4);
             this.TxtLog.Name = "TxtLog";
             this.TxtLog.ReadOnly = true;
-            this.TxtLog.Size = new System.Drawing.Size(576, 697);
+            this.TxtLog.Size = new System.Drawing.Size(576, 613);
             this.TxtLog.TabIndex = 7;
             this.TxtLog.Text = "";
             // 
             // BtnStart
             // 
             this.BtnStart.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnStart.Location = new System.Drawing.Point(600, 249);
+            this.BtnStart.Location = new System.Drawing.Point(598, 370);
             this.BtnStart.Margin = new System.Windows.Forms.Padding(4);
             this.BtnStart.Name = "BtnStart";
             this.BtnStart.Size = new System.Drawing.Size(100, 28);
@@ -329,7 +343,7 @@ namespace reader_connector.Forms
             // BtnClearLog
             // 
             this.BtnClearLog.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnClearLog.Location = new System.Drawing.Point(600, 285);
+            this.BtnClearLog.Location = new System.Drawing.Point(598, 334);
             this.BtnClearLog.Margin = new System.Windows.Forms.Padding(4);
             this.BtnClearLog.Name = "BtnClearLog";
             this.BtnClearLog.Size = new System.Drawing.Size(100, 28);
@@ -350,31 +364,114 @@ namespace reader_connector.Forms
             this.BtnExit.UseVisualStyleBackColor = true;
             this.BtnExit.Click += new System.EventHandler(this.BtnExit_Click);
             // 
-            // LabelCourseName
+            // label9
             // 
-            this.LabelCourseName.AutoSize = true;
-            this.LabelCourseName.Font = new System.Drawing.Font("Calibri", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelCourseName.Location = new System.Drawing.Point(284, 17);
-            this.LabelCourseName.Name = "LabelCourseName";
-            this.LabelCourseName.Size = new System.Drawing.Size(195, 29);
-            this.LabelCourseName.TabIndex = 8;
-            this.LabelCourseName.Text = "No Current Course";
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(231, 27);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(158, 21);
+            this.label9.TabIndex = 8;
+            this.label9.Text = "Start/End ANT Power";
             // 
-            // LabelTime
+            // label10
             // 
-            this.LabelTime.AutoSize = true;
-            this.LabelTime.Font = new System.Drawing.Font("Calibri", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelTime.Location = new System.Drawing.Point(284, 49);
-            this.LabelTime.Name = "LabelTime";
-            this.LabelTime.Size = new System.Drawing.Size(0, 29);
-            this.LabelTime.TabIndex = 9;
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(249, 58);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(140, 21);
+            this.label10.TabIndex = 9;
+            this.label10.Text = "Middle ANT Power";
+            // 
+            // ComboMidANTPower
+            // 
+            this.ComboMidANTPower.FormattingEnabled = true;
+            this.ComboMidANTPower.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "22",
+            "23",
+            "24",
+            "25",
+            "26",
+            "27",
+            "28",
+            "29",
+            "30"});
+            this.ComboMidANTPower.Location = new System.Drawing.Point(397, 54);
+            this.ComboMidANTPower.Name = "ComboMidANTPower";
+            this.ComboMidANTPower.Size = new System.Drawing.Size(150, 27);
+            this.ComboMidANTPower.TabIndex = 15;
+            // 
+            // ComboStartANTPower
+            // 
+            this.ComboStartANTPower.FormattingEnabled = true;
+            this.ComboStartANTPower.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "22",
+            "23",
+            "24",
+            "25",
+            "26",
+            "27",
+            "28",
+            "29",
+            "30"});
+            this.ComboStartANTPower.Location = new System.Drawing.Point(397, 21);
+            this.ComboStartANTPower.Name = "ComboStartANTPower";
+            this.ComboStartANTPower.Size = new System.Drawing.Size(150, 27);
+            this.ComboStartANTPower.TabIndex = 16;
             // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(719, 960);
+            this.Controls.Add(this.LabelTime);
             this.Controls.Add(this.BtnExit);
+            this.Controls.Add(this.LabelCourseName);
             this.Controls.Add(this.BtnClearLog);
             this.Controls.Add(this.BtnStart);
             this.Controls.Add(this.TxtLog);
@@ -393,6 +490,7 @@ namespace reader_connector.Forms
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.GrpSettings.ResumeLayout(false);
             this.GrpSettings.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -406,7 +504,6 @@ namespace reader_connector.Forms
         private System.Windows.Forms.Button BtnTcpConnect;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox GrpSettings;
-        private System.Windows.Forms.Button BtnGetSettings;
         private System.Windows.Forms.Button BtnSetSettings;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox TxtTagFilter;
@@ -427,5 +524,10 @@ namespace reader_connector.Forms
         private System.Windows.Forms.TextBox TxtTcp;
         private System.Windows.Forms.Label LabelTime;
         private System.Windows.Forms.Label LabelCourseName;
+        private System.Windows.Forms.ComboBox ComboStartANTPower;
+        private System.Windows.Forms.ComboBox ComboMidANTPower;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.BindingSource bindingSource2;
     }
 }
