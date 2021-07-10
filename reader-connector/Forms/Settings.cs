@@ -71,10 +71,58 @@ namespace reader_connector.Forms
             ComboRoom.DisplayMember = "Code";
             ComboRoom.ValueMember = "Code";
 
-            ComboStartANTPower.SelectedItem = "30";
-            ComboMidANTPower.SelectedItem = "24";
+            ComboStartANTPower.SelectedItem = "24";
+            ComboMidANTPower.SelectedItem = "20";
 
-            ConnectSocket();
+            LogSampleText();
+            //ConnectSocket();
+        }
+
+        private void LogSampleNoCourse()
+        {
+            LogOutput($"There is no current course for LA1.605! Enjoy :D");
+            LogOutput($"Stop reading tag :D");
+
+        }
+        private void LogSampleConnection()
+        {
+            LogOutput("Connecting to server...");
+            LogOutput("Connected to server.");
+            LogOutput("Connecting to reader...");
+            LogOutput("Connect successfully to reader.");
+            LogOutput("Fetching current course...");
+            LogOutput($"Current course of LA1.605 is Introduction to Artificial Intelligence " +
+                $"on tuesday (1-4)");
+            LogOutput($"Antenna power is set to 24dBm for period 1.");
+            LogOutput("Reading tags :D");
+        }
+        private void LogSampleAttendance()
+        {
+            LogOutput("Detecting tag...");
+            LogOutput("Chiêm Quốc Hùng checked attendance successfully :D");
+            LogOutput("Detecting tag...");
+            LogOutput("Trần Minh Duy did not registered for this class :D");
+            LogOutput("Detecting tag...");
+            LogOutput("No tag data D:");
+        }
+        private void LogSampleAdjustPower()
+        {
+            LogOutput("Detecting tag...");
+            LogOutput("Phan Nguyễn Xuân Phúc did not registered for this class :D");
+            LogOutput("Detecting tag...");
+            LogOutput("Chiêm Quốc Hùng checked attendance successfully :D");
+            LogOutput($"Antenna power is set to 20dBm for period 2.");
+            LogOutput($"Antenna power is set to 20dBm for period 3.");
+            LogOutput("Detecting tag...");
+            LogOutput("Chiêm Quốc Hùng checked attendance successfully :D");
+            LogOutput($"Antenna power is set to 24dBm for period 4.");
+        }
+        private void LogSampleText()
+        {
+            LogSampleConnection();
+            LogSampleAttendance();
+            LogSampleAdjustPower();
+            LogSampleNoCourse();
         }
 
         public void ConnectSocket()
@@ -173,7 +221,7 @@ namespace reader_connector.Forms
                 antPower = int.Parse(ComboStartANTPower.SelectedItem.ToString());
             int result = RFIDReader._RFIDConfig.SetANTPowerParam(GetConnectionString(), new Dictionary<int, int>()
                 {{1, antPower}});
-            if (result == 0) LogOutput($"Antenna power is set to {antPower}dBm");
+            if (result == 0) LogOutput($"Antenna power is set to {antPower}dBm for period {course.CurrentPeriod}");
             else LogOutput("Failure setting antenna power");
 
         }
@@ -230,8 +278,8 @@ namespace reader_connector.Forms
 
         private async void GetCurrentCourse()
         {
-            LogOutput("Fetching current course...");
             string roomCode = ComboRoom.GetItemText(ComboRoom.SelectedItem);
+            LogOutput($"Fetching current course of {roomCode}...");
             string uri = $"{url}/reader/current-course/{roomCode}";
             string response = await RestAPIHelper.Get(uri);
             try
@@ -240,7 +288,7 @@ namespace reader_connector.Forms
                 SetCourseProp(currentCourse);
                 ToggleReadTags(true);
             }
-            catch (NullReferenceException nullE)
+            catch (NullReferenceException)
             {
                 SetNoCourseProp(roomCode);
                 ToggleReadTags(false);

@@ -45,23 +45,23 @@ namespace reader_connector.Forms
             this.BtnCheckConn = new System.Windows.Forms.Button();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.GrpSettings = new System.Windows.Forms.GroupBox();
-            this.LabelTime = new System.Windows.Forms.Label();
-            this.LabelCourseName = new System.Windows.Forms.Label();
+            this.ComboStartANTPower = new System.Windows.Forms.ComboBox();
+            this.ComboMidANTPower = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.BtnSetSettings = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.TxtTagFilter = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.TxtAutosleep = new System.Windows.Forms.TextBox();
+            this.LabelTime = new System.Windows.Forms.Label();
+            this.LabelCourseName = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.TxtLog = new System.Windows.Forms.RichTextBox();
             this.BtnStart = new System.Windows.Forms.Button();
             this.BtnClearLog = new System.Windows.Forms.Button();
             this.BtnExit = new System.Windows.Forms.Button();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
             this.bindingSource2 = new System.Windows.Forms.BindingSource(this.components);
-            this.ComboMidANTPower = new System.Windows.Forms.ComboBox();
-            this.ComboStartANTPower = new System.Windows.Forms.ComboBox();
             this.GrpSetup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.GrpSettings.SuspendLayout();
@@ -77,6 +77,7 @@ namespace reader_connector.Forms
             this.TxtCourseId.Name = "TxtCourseId";
             this.TxtCourseId.Size = new System.Drawing.Size(132, 24);
             this.TxtCourseId.TabIndex = 1;
+            this.TxtCourseId.Text = "6046d78bfa42780004beaaaa";
             // 
             // GrpSetup
             // 
@@ -118,7 +119,7 @@ namespace reader_connector.Forms
             this.BtnSerialConnect.Name = "BtnSerialConnect";
             this.BtnSerialConnect.Size = new System.Drawing.Size(127, 28);
             this.BtnSerialConnect.TabIndex = 13;
-            this.BtnSerialConnect.Text = "Serial connect";
+            this.BtnSerialConnect.Text = "Disconnect";
             this.BtnSerialConnect.UseVisualStyleBackColor = true;
             this.BtnSerialConnect.Click += new System.EventHandler(this.BtnSerialConnect_Click);
             // 
@@ -174,6 +175,7 @@ namespace reader_connector.Forms
             // 
             // BtnTcpConnect
             // 
+            this.BtnTcpConnect.Enabled = false;
             this.BtnTcpConnect.Location = new System.Drawing.Point(555, 15);
             this.BtnTcpConnect.Margin = new System.Windows.Forms.Padding(4);
             this.BtnTcpConnect.Name = "BtnTcpConnect";
@@ -236,25 +238,105 @@ namespace reader_connector.Forms
             this.GrpSettings.TabStop = false;
             this.GrpSettings.Text = "Settings";
             // 
-            // LabelTime
+            // ComboStartANTPower
             // 
-            this.LabelTime.AutoSize = true;
-            this.LabelTime.Font = new System.Drawing.Font("Calibri", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelTime.Location = new System.Drawing.Point(23, 280);
-            this.LabelTime.Name = "LabelTime";
-            this.LabelTime.Size = new System.Drawing.Size(0, 29);
-            this.LabelTime.TabIndex = 9;
-            this.LabelTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.ComboStartANTPower.FormattingEnabled = true;
+            this.ComboStartANTPower.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "22",
+            "23",
+            "24",
+            "25",
+            "26",
+            "27",
+            "28",
+            "29",
+            "30"});
+            this.ComboStartANTPower.Location = new System.Drawing.Point(397, 21);
+            this.ComboStartANTPower.Name = "ComboStartANTPower";
+            this.ComboStartANTPower.Size = new System.Drawing.Size(150, 27);
+            this.ComboStartANTPower.TabIndex = 16;
             // 
-            // LabelCourseName
+            // ComboMidANTPower
             // 
-            this.LabelCourseName.AutoSize = true;
-            this.LabelCourseName.Font = new System.Drawing.Font("Calibri", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelCourseName.Location = new System.Drawing.Point(23, 238);
-            this.LabelCourseName.Name = "LabelCourseName";
-            this.LabelCourseName.Size = new System.Drawing.Size(0, 29);
-            this.LabelCourseName.TabIndex = 8;
-            this.LabelCourseName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.ComboMidANTPower.FormattingEnabled = true;
+            this.ComboMidANTPower.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "22",
+            "23",
+            "24",
+            "25",
+            "26",
+            "27",
+            "28",
+            "29",
+            "30"});
+            this.ComboMidANTPower.Location = new System.Drawing.Point(397, 54);
+            this.ComboMidANTPower.Name = "ComboMidANTPower";
+            this.ComboMidANTPower.Size = new System.Drawing.Size(150, 27);
+            this.ComboMidANTPower.TabIndex = 15;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(249, 58);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(140, 21);
+            this.label10.TabIndex = 9;
+            this.label10.Text = "Middle ANT Power";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(231, 27);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(158, 21);
+            this.label9.TabIndex = 8;
+            this.label9.Text = "Start/End ANT Power";
             // 
             // BtnSetSettings
             // 
@@ -286,6 +368,7 @@ namespace reader_connector.Forms
             this.TxtTagFilter.Name = "TxtTagFilter";
             this.TxtTagFilter.Size = new System.Drawing.Size(118, 24);
             this.TxtTagFilter.TabIndex = 0;
+            this.TxtTagFilter.Text = "50";
             // 
             // label5
             // 
@@ -305,6 +388,29 @@ namespace reader_connector.Forms
             this.TxtAutosleep.Name = "TxtAutosleep";
             this.TxtAutosleep.Size = new System.Drawing.Size(118, 24);
             this.TxtAutosleep.TabIndex = 1;
+            this.TxtAutosleep.Text = "100";
+            // 
+            // LabelTime
+            // 
+            this.LabelTime.AutoSize = true;
+            this.LabelTime.Font = new System.Drawing.Font("Calibri", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelTime.Location = new System.Drawing.Point(23, 280);
+            this.LabelTime.Name = "LabelTime";
+            this.LabelTime.Size = new System.Drawing.Size(144, 29);
+            this.LabelTime.TabIndex = 9;
+            this.LabelTime.Text = "Tuesday (1-4)";
+            this.LabelTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // LabelCourseName
+            // 
+            this.LabelCourseName.AutoSize = true;
+            this.LabelCourseName.Font = new System.Drawing.Font("Calibri", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelCourseName.Location = new System.Drawing.Point(23, 238);
+            this.LabelCourseName.Name = "LabelCourseName";
+            this.LabelCourseName.Size = new System.Drawing.Size(369, 29);
+            this.LabelCourseName.TabIndex = 8;
+            this.LabelCourseName.Text = "Introduction to Artificial Intelligence";
+            this.LabelCourseName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label3
             // 
@@ -363,106 +469,6 @@ namespace reader_connector.Forms
             this.BtnExit.Text = "Exit";
             this.BtnExit.UseVisualStyleBackColor = true;
             this.BtnExit.Click += new System.EventHandler(this.BtnExit_Click);
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(231, 27);
-            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(158, 21);
-            this.label9.TabIndex = 8;
-            this.label9.Text = "Start/End ANT Power";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(249, 58);
-            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(140, 21);
-            this.label10.TabIndex = 9;
-            this.label10.Text = "Middle ANT Power";
-            // 
-            // ComboMidANTPower
-            // 
-            this.ComboMidANTPower.FormattingEnabled = true;
-            this.ComboMidANTPower.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11",
-            "12",
-            "13",
-            "14",
-            "15",
-            "16",
-            "17",
-            "18",
-            "19",
-            "20",
-            "21",
-            "22",
-            "23",
-            "24",
-            "25",
-            "26",
-            "27",
-            "28",
-            "29",
-            "30"});
-            this.ComboMidANTPower.Location = new System.Drawing.Point(397, 54);
-            this.ComboMidANTPower.Name = "ComboMidANTPower";
-            this.ComboMidANTPower.Size = new System.Drawing.Size(150, 27);
-            this.ComboMidANTPower.TabIndex = 15;
-            // 
-            // ComboStartANTPower
-            // 
-            this.ComboStartANTPower.FormattingEnabled = true;
-            this.ComboStartANTPower.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11",
-            "12",
-            "13",
-            "14",
-            "15",
-            "16",
-            "17",
-            "18",
-            "19",
-            "20",
-            "21",
-            "22",
-            "23",
-            "24",
-            "25",
-            "26",
-            "27",
-            "28",
-            "29",
-            "30"});
-            this.ComboStartANTPower.Location = new System.Drawing.Point(397, 21);
-            this.ComboStartANTPower.Name = "ComboStartANTPower";
-            this.ComboStartANTPower.Size = new System.Drawing.Size(150, 27);
-            this.ComboStartANTPower.TabIndex = 16;
             // 
             // Settings
             // 
